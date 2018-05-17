@@ -1,0 +1,23 @@
+logger:
+  level: DEBUG
+  category: org.jboss.as.jpa
+
+
+swarm:
+  datasources:
+    jdbc-drivers:
+      h2:
+        driver-class-name: org.h2.Driver
+        xa-datasource-class-name: org.h2.jdbcx.JdbcDataSource
+        driver-module-name: com.h2database.h2 
+    data-sources:
+      TestDS:
+        driver-name: h2
+        connection-url: jdbc:h2:tcp://localhost/~/jkit
+        user-name: sa
+        password: 
+
+        
+
+
+  

@@ -1,0 +1,31 @@
+[OSEv3:children]
+masters
+etcd
+nodes
+lb
+
+[lb]
+dhcp182-211.gsslab.rdu2.redhat.com
+
+
+[masters]
+dhcp179-155.gsslab.rdu2.redhat.com
+calculon.gsslab.rdu2.redhat.com
+dhcp182-211.gsslab.rdu2.redhat.com
+
+[etcd]
+dhcp179-155.gsslab.rdu2.redhat.com
+calculon.gsslab.rdu2.redhat.com
+dhcp182-211.gsslab.rdu2.redhat.com
+
+[nodes]
+dhcp179-155.gsslab.rdu2.redhat.com openshift_node_labels="{'region': 'mgmt', 'role': 'master'}"
+calculon.gsslab.rdu2.redhat.com openshift_node_labels="{'region': 'mgmt', 'role': 'master'}"
+dhcp182-211.gsslab.rdu2.redhat.com openshift_node_labels="{'region': 'mgmt', 'role': 'master'}"
+insights-content.prod.gsslab.rdu2.redhat.com openshift_node_labels="{'region': 'infra', 'role': 'infra', 'zone': 'default'}"
+vm74.gsslab.rdu2.redhat.com openshift_node_labels="{'region': 'infra', 'role': 'infra', 'zone': 'default'}"
+weblogic-1.gsslab.rdu2.redhat.com openshift_node_labels="{'region': 'infra', 'role': 'infra', 'zone': 'default'}"
+insights-analysis.qa.gsslab.rdu2.redhat.com openshift_node_labels="{'region': 'app', 'role': 'app', 'zone': 'default'}"
+insights-content.qa.gsslab.rdu2.redhat.com openshift_node_labels="{'region': 'app', 'role': 'app', 'zone': 'default'}"
+
+

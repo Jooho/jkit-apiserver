@@ -1,0 +1,6 @@
+- name: Check if OpenShift daemons status is active.
+  hosts: masters:nodes:etcd
+  gather_facts: false
+  tasks:
+  - include_role:
+      name: openshift-daemons-status-check

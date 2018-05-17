@@ -1,0 +1,3 @@
+- name: QE Test Result - Success
+  command: echo "The actual result is the same with expected result"
+  

@@ -1,0 +1,32 @@
+- hosts: localhost
+  
+  pre_tasks: 
+    - name: set concurrent path
+      local_action: command pwd
+      register: pwd
+
+    - name: Get path of parent of ose_smart_start_ansible
+      shell: echo '{{ pwd.stdout.split("/")[0:-2]|join("/") }}'
+      register: ansible_git_dir  
+  tasks:
+    - add_host:
+        name: config
+        groups: jkit
+        path:
+          root_dir: "/tmp/jkit"
+          ansible_git_dir: "{{ansible_git_dir.stdout}}"
+          temp_result_file_name: "result.txt.temp"
+          result_file_name: "result.txt"
+        ansible_controller:
+          hostname: "localhost"
+    
+  post_tasks:
+    - name: create root_dir
+      file:
+        state: directory
+        path: "{{hostvars['config'].path.root_dir}}"
+      
+    - name: test
+      shell: echo "before tasks"
+      
+      

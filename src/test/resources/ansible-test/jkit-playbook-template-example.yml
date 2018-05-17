@@ -1,0 +1,17 @@
+- import_playbook: ./playbooks/commons/before.yml
+
+- name: Check if OpenShift daemons status is active.
+  hosts: masters:nodes:etcd
+  vars:
+    role_name: openshift_daemons_status_check
+  gather_facts: false
+  pre_tasks:
+    - debug: msg="{{hostvars['config'].path.root_dir}}"
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/pre.yml"
+  tasks:
+  - include_role:
+      name: openshift_daemons_status_check
+  post_tasks:
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/post_qe.yml"
+
+- import_playbook: ./playbooks/commons/after.yml

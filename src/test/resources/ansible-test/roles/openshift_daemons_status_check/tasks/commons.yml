@@ -1,0 +1,22 @@
+ - name: OpenShift common daemon status check
+   shell: systemctl is-active {{item}}
+   ignore_errors: yes
+   changed_when: false
+   register: test_task_result_4
+   with_items:
+     - "docker"
+     - "openvswitch"
+     - "dnsmasq"
+     - "NetworkManager"
+ 
+ - name: write result
+   lineinfile:
+     path: "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}"
+     line: >
+      {{inventory_hostname}} {{test_task_result_4.results[0].item}}={{test_task_result_4.results[0].stdout}}
+      {{test_task_result_4.results[1].item}}={{test_task_result_4.results[1].stdout}}
+      {{test_task_result_4.results[2].item}}={{test_task_result_4.results[2].stdout}}
+      {{test_task_result_4.results[3].item}}={{test_task_result_4.results[3].stdout}}
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"
+ 
+ 

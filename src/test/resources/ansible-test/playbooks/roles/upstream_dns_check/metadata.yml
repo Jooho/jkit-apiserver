@@ -1,0 +1,14 @@
+---
+role:
+  name: upstream-dns-check
+  short_desc: Check Upstream DNS
+  long_desc: "#FROM_README"
+  check_items:
+  - name: masters/nodes/etcd/lb/nfs are resolved?
+    expected_result_type: boolean
+    default_expected_result: True
+  - name: subdomain is resolved?
+    expected_result_type: boolean
+    default_expected_result: True
+  requirements:
+  - bind-utils

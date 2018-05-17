@@ -1,0 +1,17 @@
+ - name: etcd daemon status check
+   shell: systemctl is-active etcd
+   ignore_errors: yes
+   changed_when: false
+   register: test_task_result_3
+ - debug: msg="{{test_task_result_3}}"
+# - name: write result
+#   lineinfile:
+#     path: "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}"
+#     line: "{{inventory_hostname}} {{test_task_result_3.cmd}}={{test_task_result_3.stdout}}"
+#   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"
+
+ - name: write result
+   shell: echo "{{inventory_hostname}} {{test_task_result_3.cmd}}={{test_task_result_3.stdout}}" >> "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}" 
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"
+
+   

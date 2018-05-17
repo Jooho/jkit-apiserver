@@ -1,0 +1,12 @@
+- name: #ROLE_SHORT_DESC
+  hosts: #HOSTS
+  vars:
+    role_name: #ROLE_NAME
+  #ANSILBE_OPTIONS
+  pre_tasks:
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/pre.yml"
+  tasks:
+  - include_role:
+      name: "{{role_name}}"
+  post_tasks:
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/post.yml"

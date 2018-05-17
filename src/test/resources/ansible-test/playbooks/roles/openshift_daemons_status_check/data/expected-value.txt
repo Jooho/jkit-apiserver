@@ -1,0 +1,22 @@
+calculon.gsslab.rdu2.redhat.com atomic-openshift-master-api=active atomic-openshift-master-controller=unknown
+calculon.gsslab.rdu2.redhat.com atomic-openshift-node=active
+calculon.gsslab.rdu2.redhat.com docker=active openvswitch=active dnsmasq=active NetworkManager=active
+calculon.gsslab.rdu2.redhat.com systemctl is-active etcd=active
+dhcp179-155.gsslab.rdu2.redhat.com atomic-openshift-master-api=active atomic-openshift-master-controller=unknown
+dhcp179-155.gsslab.rdu2.redhat.com atomic-openshift-node=active
+dhcp179-155.gsslab.rdu2.redhat.com docker=active openvswitch=active dnsmasq=active NetworkManager=active
+dhcp179-155.gsslab.rdu2.redhat.com systemctl is-active etcd=active
+dhcp182-211.gsslab.rdu2.redhat.com atomic-openshift-master-api=active atomic-openshift-master-controller=unknown
+dhcp182-211.gsslab.rdu2.redhat.com atomic-openshift-node=active
+dhcp182-211.gsslab.rdu2.redhat.com docker=active openvswitch=active dnsmasq=active NetworkManager=active
+dhcp182-211.gsslab.rdu2.redhat.com systemctl is-active etcd=active
+insights-analysis.qa.gsslab.rdu2.redhat.com atomic-openshift-node=active
+insights-analysis.qa.gsslab.rdu2.redhat.com docker=active openvswitch=active dnsmasq=active NetworkManager=active
+insights-content.prod.gsslab.rdu2.redhat.com atomic-openshift-node=active
+insights-content.prod.gsslab.rdu2.redhat.com docker=active openvswitch=active dnsmasq=active NetworkManager=active
+insights-content.qa.gsslab.rdu2.redhat.com atomic-openshift-node=active
+insights-content.qa.gsslab.rdu2.redhat.com docker=active openvswitch=active dnsmasq=active NetworkManager=active
+vm74.gsslab.rdu2.redhat.com atomic-openshift-node=active
+vm74.gsslab.rdu2.redhat.com docker=active openvswitch=active dnsmasq=active NetworkManager=active
+weblogic-1.gsslab.rdu2.redhat.com atomic-openshift-node=active
+weblogic-1.gsslab.rdu2.redhat.com docker=active openvswitch=active dnsmasq=active NetworkManager=active

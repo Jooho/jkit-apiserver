@@ -1,0 +1,4 @@
+- import_playbook: ./playbooks/commons/before.yml
+
+#ROLE
+- import_playbook: ./playbooks/commons/after.yml

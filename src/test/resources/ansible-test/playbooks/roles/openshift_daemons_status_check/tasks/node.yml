@@ -1,0 +1,24 @@
+ - name: Node daemon status check
+   shell: systemctl is-active {{item}}
+   ignore_errors: yes
+   changed_when: false
+   register: test_task_result_5
+   with_items:
+     - "atomic-openshift-node"
+    
+# - name: write result
+#   lineinfile:
+#     path: "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}"
+#     line: "{{inventory_hostname}} {{test_task_result_5.results[0].item}}={{test_task_result_5.results[0].stdout}}"
+#   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"
+
+ - name: write result
+   shell: echo "{{inventory_hostname}} {{test_task_result_5.results[0].item}}={{test_task_result_5.results[0].stdout}}" >> "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}"
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"
+
+  
+       
+ - name: OpenShift common daemon status check
+   include_tasks: ./commons.yml
+   when: not inventory_hostname in groups['masters']
+  

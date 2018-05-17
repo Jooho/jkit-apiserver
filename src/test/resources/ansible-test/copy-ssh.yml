@@ -1,0 +1,7 @@
+ - name: Copy SSH Key to Nodes
+   hosts: all
+   gather_facts: false
+
+   roles:
+    - { role: conf_copy_ssh_key }
+

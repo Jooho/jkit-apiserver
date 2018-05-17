@@ -1,0 +1,47 @@
+ - name: master daemon status check
+   shell: systemctl is-active atomic-openshift-master
+   ignore_errors: yes
+   changed_when: false
+   register: test_task_result_1
+   when: groups['masters']|length == 1
+ 
+ 
+ - name: write result
+   lineinfile:
+     path: "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}"
+     line: "{{inventory_hostname}} {{test_task_result_1.results[0].item}}={{test_task_result_1.results[0].stdout}}"
+     insertafter: "{{inventory_hostname}}"
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"
+   when: not (test_task_result_1|skipped)
+   
+   
+ - name: master api/controller daemon status check
+   shell: systemctl is-active {{item}}
+   ignore_errors: yes
+   changed_when: false
+   register: test_task_result_2
+   with_items:
+     - "atomic-openshift-master-api"
+     - "atomic-openshift-master-controller"
+   when: groups['masters']|length > 1
+
+ - debug: msg="{{test_task_result_2}}"
+# - name: write result
+#   lineinfile:
+#     path: "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}"
+#     line: "{{inventory_hostname}} {{test_task_result_2.results[0].item}}={{test_task_result_2.results[0].stdout}} {{test_task_result_2.results[1].item}}={{test_task_result_2.results[1].stdout}}"
+#   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"
+#   when: not (test_task_result_2|skipped)  
+
+ - name: write result
+   shell: echo "{{inventory_hostname}} {{test_task_result_2.results[0].item}}={{test_task_result_2.results[0].stdout}} {{test_task_result_2.results[1].item}}={{test_task_result_2.results[1].stdout}}" >> "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}"       
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"
+   when: not (test_task_result_2|skipped)     
+   
+ - name: etcd daemon status check
+   include_tasks: ./etcd.yml
+   when: inventory_hostname in groups['etcd']
+  
+ - name: common daemon status check
+   include_tasks: ./commons.yml
+   

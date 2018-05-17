@@ -1,0 +1,13 @@
+---
+ - name: master daemon status check
+   include_tasks: ./master.yml
+   when: inventory_hostname in groups['masters']
+ 
+ - name: node daemon status check
+   include_tasks: ./node.yml
+   when: inventory_hostname in groups['nodes']
+ 
+ 
+ - name: etcd daemon status check
+   include_tasks: ./etcd.yml
+   when: inventory_hostname in groups['etcd'] and groups['masters']| difference(groups['etcd'])|length != 0

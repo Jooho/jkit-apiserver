@@ -1,0 +1,37 @@
+ - name: pre_tasks
+   shell: echo "pre_tasks"
+  
+ - name: create an role directory
+   file:
+     state: "{{item}}"
+     path: "{{hostvars['config'].path.root_dir}}/{{role_name}}"
+   with_items:
+     - "absent"
+     - "directory"
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"   
+   run_once: yes
+   
+ - name: create a temp result file
+   file:
+     state: "{{item}}"
+     path: "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}"
+   with_items:
+     - "absent"
+     - "touch"
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"   
+   run_once: yes
+   
+ - name: delete a old log file
+   file:
+     state: "absent"
+     path: "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{role_name}}.log"
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"   
+   run_once: yes
+ 
+ - name: role log start
+   shell: tail -f /tmp/ansible.log > "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{role_name}}.log" & echo $!
+   register: log_pid
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"   
+   run_once: yes
+   
+    

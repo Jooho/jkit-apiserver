@@ -1,0 +1,10 @@
+---
+role:
+  name: openshift-daemons-status-check
+  short_desc: Check OpenShift Daemons Status
+  long_desc: "#FROM_README"
+  result_items:
+  - name: masters/nodes/etcd/lb/nfs are active?
+    expected_result_type: is-active
+    default_expected_result: active
+ 

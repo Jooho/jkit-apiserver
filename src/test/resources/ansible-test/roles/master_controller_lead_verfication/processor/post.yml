@@ -1,0 +1,27 @@
+ - name: post_tasks
+   shell: echo "post_tasks"
+   
+ - name: read temp result file
+   shell: "cat {{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}|sort|sed '/^$/d'"
+   register: sorted_result
+   delegate_to: localhost
+   run_once: yes
+ 
+ - name: generate result file with sorted_result
+   copy:
+     dest: "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.result_file_name}}"
+     content: "{{sorted_result.stdout}}"
+   delegate_to: localhost
+   run_once: yes
+  
+ - name: delete temp result file
+   file: 
+    path: "{{hostvars['config'].path.root_dir}}/{{role_name}}/{{hostvars['config'].path.temp_result_file_name}}"
+    state: absent
+   delegate_to: localhost
+   run_once: yes
+   
+ - name: log finish
+   shell: "kill -9 {{log_pid.stdout}}"
+   delegate_to: "{{hostvars['config'].ansible_controller.hostname}}"   
+   run_once: yes

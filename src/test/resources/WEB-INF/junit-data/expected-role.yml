@@ -1,0 +1,43 @@
+- name: Master Controller Lead Verification
+  hosts: masters[0]
+  vars:
+    role_name: master_controller_lead_varification
+  gather_facts: false
+  pre_tasks:
+    - debug: msg="{{hostvars['config'].path.root_dir}}"
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/pre.yml"
+  tasks:
+  - include_role:
+      name: {{role_name}}
+  post_tasks:
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/post.yml"
+
+- name: Check API Server/Web Console health
+  hosts: masters[0]
+  vars:
+    role_name: api_server_health_check
+  gather_facts: false
+  pre_tasks:
+    - debug: msg="{{hostvars['config'].path.root_dir}}"
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/pre.yml"
+  tasks:
+  - include_role:
+      name: {{role_name}}
+  post_tasks:
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/post.yml"
+
+- name: Check OpenShift Daemons Status
+  hosts: masters:nodes:etcd
+  vars:
+    role_name: openshift_daemons_status_check
+  gather_facts: false
+  pre_tasks:
+    - debug: msg="{{hostvars['config'].path.root_dir}}"
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/pre.yml"
+  tasks:
+  - include_role:
+      name: {{role_name}}
+  post_tasks:
+    - include_tasks: "{{hostvars['config'].path.ansible_git_dir}}/roles/{{role_name}}/processor/post.yml"
+  
+    
